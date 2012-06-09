@@ -1,0 +1,29 @@
+{%extends "base.html"%}
+	{%block title%}
+	<title>moeCN-客户登录</title>
+	{%endblock%}
+		{%block menu%}
+		<ul id="menu">
+			<li><a href="/" title="首页">首页</a></li>
+			<li><a class="current" href="/login/" title="客户中心">客户中心</a></li>
+			<li><a href="/kb/" title="帮助中心">帮助中心</a></li>
+			<li><a href="/download/" title="下载中心">下载中心</a></li>
+			<li><a href="/reg/" title="注册">注册</a></li>		
+		</ul>		
+		{%endblock%}
+		{%block body%}
+		<div class="clear"></div>
+	
+		<div class="full">
+			<h2>客户登录</h2>
+			<form action="/login/" method="POST">
+				<table>
+					<tr><th><label for="id_username">用户名：</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>
+					<tr><th><label for="id_password">密码：</label></th><td>{{form.password}}</td><td>{{form.password.errors}}</td></tr>				
+				</table>
+				<p><input type="submit" id="submit" value="登录"/></input></p>
+			</form>	
+		</div>
+		
+		<div class="clear"></div>
+		{%endblock%}

@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+	{%block title%}
+	MOECN.NET-登录
+	{%endblock%}
+		{%block container%}
+		<div class="main">
+			<h2>客户登录</h2>
+			<hr>
+			<form action="/login/" method="POST">
+			    {% csrf_token %}
+				<table>
+					<tr><th><label for="id_username">用户名：</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>
+					<tr><th><label for="id_password">密码：</label></th><td>{{form.password}}</td><td>{{form.password.errors}}</td></tr>				
+				</table>
+				<p><input class="btn btn-primary" type="submit" id="submit" value="登录"/></input>
+				<input class="btn" type="reset" id="reset" value="重置"/></input></p>
+			</form>	
+		</div>
+		{%endblock%}

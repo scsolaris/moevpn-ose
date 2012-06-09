@@ -1,0 +1,38 @@
+{%extends "base.html"%}
+	{%block title%}
+	<title>moeCN-帮助中心</title>
+	{%endblock%}
+		{%block menu%}
+		<ul id="menu">
+			<li><a href="/" title="首页">首页</a></li>
+			<li><a href="/login/" title="客户中心">客户中心</a></li>
+			<li><a class="current" href="/kb/" title="帮助中心">帮助中心</a></li>
+			<li><a href="/download/" title="下载中心">下载中心</a></li>
+			<li><a href="/reg/" title="注册">注册</a></li>		
+		</ul>		
+		{%endblock%}
+		{%block body%}
+		<div class="clear"></div>
+	
+		<div class="full">
+			<h2>帮助中心</h2>
+			<table id="customers">
+			<tr>
+				<th>ID</th>
+				<th>标题</th>
+				<th>作者</th>
+				<th>时间</th>		
+			</tr>			
+			{%for post in posts reversed%}
+			<tr class="{%cycle '' 'alt'%}">
+				<td>{{post.post_id}}</td>
+				<td><a href="/kb/post/{{post.post_id}}/" >{{post.title}}</a></td>
+				<td>{{post.author}}</td>
+				<td>{{post.time}}</td>
+			</tr>
+			{%endfor%}
+			</table>
+		</div>
+		
+		<div class="clear"></div>
+		{%endblock%}

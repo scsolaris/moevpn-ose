@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{%block title%}MOECN.NET{%endblock%}</title>
+  {%block meta%}
+  <meta name="description" content="OpenVPN/L2TP/PPTP Service">
+  <meta name="viewport" content="width=device-width">
+  {%endblock%}
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]><p class=chromeframe>您正在使用过时的浏览器！<a href="http://browsehappy.com/">升级到新版浏览器</a> 或者 <a href="http://www.google.com/chromeframe/?redirect=true">安装 Google Chrome Frame </a>获得更好的浏览体验！</p><![endif]-->
+
+  <!-- Add your site or application content here -->
+  <div id="header" class="container">
+    <div class="page-header">
+	  <h1>MOECN.NET</h1>  
+    </div>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+	 {%block nav%}
+          <ul class="nav">
+            <li><a href="/">首页</a></li>
+            <li><a href="/login/">客户中心</a></li>
+            <li><a href="/kb/">帮助中心</a></li>
+            <li><a href="/download/">下载中心</a></li>
+            <li><a href="/reg/">注册</a></li>
+          </ul>
+         {%endblock%}
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+  <div class="container">
+  {%block container%}  
+    <div class="main">
+	 <h2>用户注册</h2>
+    </div>
+  {%endblock%}
+  </div>
+  
+  {%block footer%}
+  <div id="footer"> 
+  </div>
+  {%endblock%}
+  {%block script%}
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="/static/js/jquery-1.7.2.min.js"><\/script>')</script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  {%endblock%}
+  {%include "analytics.html"%}
+</body>
+</html>

@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+		{%block menu%}
+		<ul id="menu">
+			<li><a class="current" href="/" title="首页">首页</a></li>
+			<li><a href="/login/" title="客户中心">客户中心</a></li>
+			<li><a href="/kb/" title="帮助中心">帮助中心</a></li>
+			<li><a href="/download/" title="下载中心">下载中心</a></li>
+			<li><a href="/reg/" title="注册">注册</a></li>	
+		</ul>		
+		{%endblock%}
+		{%block body%}
+		{%for plan in plans%}
+		<div class="column">
+			<h1><span class="number">{{forloop.counter}}</span> {{plan.class}}</h1>
+				<p>
+					{{plan.description|safe}}
+					<a href="/vpn/order/" >立即购买</a></br>
+				</p>
+		</div>
+		{%endfor%}
+		
+		<div class="clear"></div>
+	
+		<div class="half">
+			<h2>为什么使用IPv6 VPN</h2>
+			<p>可以通过IPv6浏览所有IPv4网站，充分利用教育网的IPv6带宽，速度更快</p>
+			<p>校园网IPv6不计流量，上网更加省钱</p>
+			<p>校园网内延迟在200ms左右，下载校外资源速度2Mbps以上(不允许P2P下载)</p>
+			<p>服务器位于美国，方便使用AppStore，登录国外游戏服务器</p>
+			<p>所有通过VPN的网络连接都是加密的，不用担心泄密，更加安全</p>
+		</div>
+		
+		<div class="half">
+			<h2>本站公告</h2>
+			{{announcement|safe}}
+		</div>
+		
+		<div class="clear"></div>
+		{%endblock%}

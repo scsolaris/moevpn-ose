@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+	{%block title%}
+	{{post.title}} MOECN.NET-帮助中心
+	{%endblock%}
+		{%block container%}
+		<div class="main">
+			<h1>{{post.title}}</h1>
+			<br/>
+			<p><b>作者：{{post.author}}&nbsp;&nbsp;时间：{{post.time}}</b></p>
+			<hr>
+			<hf>
+			<div id="post">
+			{{post.content|safe}}
+			</div>
+			<h3><a href="/kb/" >返回帮助中心</a></h3>
+		</div>
+		{%endblock%}

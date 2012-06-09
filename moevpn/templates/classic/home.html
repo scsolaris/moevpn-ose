@@ -1,0 +1,90 @@
+{%extends "base.html"%}
+	{%block title%}
+	<title>moeCN-客户中心</title>
+	{%endblock%}
+		{%block menu%}
+		<ul id="menu">
+			<li><a href="/" title="首页">首页</a></li>
+			<li><a class="current" href="/home/" title="客户中心">客户中心</a></li>	
+			<li><a href="/kb/" title="帮助中心">帮助中心</a></li>
+			<li><a href="/download/" title="下载中心">下载中心</a></li>
+			<li><a href="/logout/" title="注销">注销</a></li>
+		</ul>		
+		{%endblock%}
+		{%block body%}
+		<div class="clear"></div>
+	
+		<div class="full">
+			<h2>客户中心</h2>
+			<h3>我的VPN</h3>
+			{%if vpn_accounts%}
+			<table id="customers">
+			<tr>
+				<th>VPN帐号</th>
+				<th>VPN密码(请勿泄漏)</th>
+				<th>VPN方案</th>
+				<th>付款周期</th>
+				<th>本月流量配额</th>
+				<th>本月已使用流量</th>
+				<th>到期时间</th>
+				<th>帐号状态</th>
+				<th>帐号操作</th>
+			</tr>
+			{%for vpn_account in vpn_accounts%}
+			<tr class="{%cycle '' 'alt'%}">
+				<td>{{vpn_account.username}}</td>
+				<td><a href="javascript:void(0)" onClick="javascript:alert('您的VPN密码为{{vpn_account.password}}');">点击查看密码</a></td>
+				<td>{{vpn_account.plan}}</td>
+				<td>{{vpn_account.cycle}}
+				<td>{{vpn_account.quota_bytes}}</td>
+				<td>{{vpn_account.quota_used}}</td>
+				<td>{{vpn_account.expiry}}</td>
+				<td>{{vpn_account.status}}</td>
+				<td><a href="/vpn/change_password/{{vpn_account.username}}/" >修改密码</a></br><a href="/vpn/account_renew/{{vpn_account.username}}/">帐号续费</a></td>
+			</tr>
+			{%endfor%}
+			{%else%}
+				<span style="color: red; ">没有VPN！</span>
+			{%endif%}
+			</table>
+			</br>
+			<h3>我的订单(<a href="/kb/post/24/">如何支付？</a>)</h3>
+			{%if vpn_orders%}
+			<table id="customers" >
+			<tr>
+				<th>订单号</th>
+				<th>时间</th>
+				<th>VPN帐号</th>
+				<th>VPN方案</th>
+				<th>付款周期</th>
+				<th>订单金额</th>
+				<th>优惠</th>
+				<th>订单状态</th>
+				<th>订单操作</th>
+			</tr>
+			{%for vpn_order in vpn_orders reversed%}
+			<tr class="{%cycle '' 'alt'%}">
+				<td>{{vpn_order.order_id}}</td>
+				<td>{{vpn_order.order_time}}</td>
+				<td>{{vpn_order.username}}</td>
+				<td>{{vpn_order.plan}}</td>
+				<td>{{vpn_order.cycle}}</td>
+				<td>{{vpn_order.price}}</td>
+				<td>{{vpn_order.discount}}</td>
+				<td>{{vpn_order.status}}</td>
+				<td><a href="javascript:void(0)" onclick="javascript:if(confirm('确认支付订单？')){location.href='/vpn/order_payment/{{vpn_order.order_id}}/';}">在线支付</a></br>
+				<a href="javascript:void(0)" onclick="javascript:if(confirm('确认取消订单？')){location.href='/vpn/order_cancel/{{vpn_order.order_id}}/';}">取消订单</a></td>
+			</tr>
+			{%endfor%}
+			</table>
+			{%else%}
+				<span style="color: red; ">没有订单！</span>
+			{%endif%}
+			</br>
+			<h3><a href="/vpn/order/" >在线提交订单</a></h3>
+			</br>
+			</br>
+		</div>
+		
+		<div class="clear"></div>
+		{%endblock%}

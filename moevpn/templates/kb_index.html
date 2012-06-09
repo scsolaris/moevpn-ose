@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+	{%block title%}
+	MOECN.NET-帮助中心
+	{%endblock%}
+		{%block container%}
+		<div class="main">
+			<h1>帮助中心</h1>
+			<hr>
+			<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>标题</th>
+				<th>作者</th>
+				<th>时间</th>		
+			</tr>			
+			{%for post in posts reversed%}
+			<tr>
+				<td>{{post.post_id}}</td>
+				<td><a href="/kb/post/{{post.post_id}}/" >{{post.title}}</a></td>
+				<td>{{post.author}}</td>
+				<td>{{post.time}}</td>
+			</tr>
+			{%endfor%}
+			</table>
+		</div>
+		{%endblock%}

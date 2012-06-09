@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+{%block container%}
+    <div class="row">
+    {%for plan in plans%}
+      <div class="span4 plan-row">
+      <h2>PLAN {{forloop.counter}}</h2>
+      {{plan.description|safe}}
+      <p><a class="btn" href="/vpn/order/">立即购买</a>
+      </p>
+      </div>
+    {%endfor%}
+      <div class="span6 announce-row">
+      <h2>News</h2>
+      {{news|safe}}
+      </div>
+      <div class="span6 announce-row">
+      <h2>本站公告</h2>      
+      {{announcement|safe}}
+      </div>
+    </div>
+{%endblock%}

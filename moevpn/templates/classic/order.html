@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+	{%block title%}
+	<title>moeCN-提交订单</title>
+	{%endblock%}
+		{%block menu%}
+		<ul id="menu">
+			<li><a href="/" title="首页">首页</a></li>
+			<li><a class="current" href="/home/" title="客户中心">客户中心</a></li>	
+			<li><a href="/kb/" title="帮助中心">帮助中心</a></li>
+			<li><a href="/download/" title="下载中心">下载中心</a></li>
+			<li><a href="/logout/" title="注销">注销</a></li>
+		</ul>		
+		{%endblock%}
+		{%block body%}
+		<div class="clear"></div>
+	
+		<div class="full">
+		<h2><a href="/home/" >返回客户中心</a></h2>
+			<h3>在线提交订单</h3>
+			<form action="" method="POST">	
+			<table>	
+				<tr><th><label for="id_username">VPN帐号：</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>				
+				<tr><th><label for="id_username">VPN密码：</label></th><td>{{form.password}}</td><td>{{form.password.errors}}</td></tr>				
+				<tr><th><label for="id_username">VPN方案：</label></th><td>{{form.plan}}</td><td>{{form.plan.errors}}</td></tr>
+				<tr><th><label for="id_username">付款周期：</label></th><td>{{form.cycle}}</td><td>{{form.cycle.errors}}</td></tr>
+			</table>
+			<input type="submit" name="submit" value="提交订单" />
+			</form>			
+			</br>
+			</br>
+		</div>
+		
+		<div class="clear"></div>
+		{%endblock%}

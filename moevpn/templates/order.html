@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+	{%block title%}
+	MOECN.NET-提交订单
+	{%endblock%}
+	 {%block nav%}
+          <ul class="nav">
+            <li><a href="/">首页</a></li>
+            <li><a href="/home/">客户中心</a></li>
+            <li><a href="/kb/">帮助中心</a></li>
+            <li><a href="/download/">下载中心</a></li>
+            <li><a href="/logout/">注销</a></li>
+          </ul>
+         {%endblock%}
+		{%block container%}
+		<div class="main">
+		<h2>在线提交订单</h2>
+		<hr>
+			<form action="" method="POST">	
+			{% csrf_token %}
+			<table>	
+				<tr><th><label for="id_username">VPN帐号：</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>				
+				<tr><th><label for="id_username">VPN密码：</label></th><td>{{form.password}}</td><td>{{form.password.errors}}</td></tr>				
+				<tr><th><label for="id_username">VPN方案：</label></th><td>{{form.plan}}</td><td>{{form.plan.errors}}</td></tr>
+				<tr><th><label for="id_username">付款周期：</label></th><td>{{form.cycle}}</td><td>{{form.cycle.errors}}</td></tr>
+				<tr><th><label for="id_promotion">优惠代码：</label></th><td>{{form.promotion}}</td><td>{{form.promotion.errors}}</td></tr>				
+			</table>
+			<input class="btn btn-primary" type="submit" name="submit" value="提交订单" />
+			<input class="btn" type="reset" name="reset" value="重置" />
+			</form>
+		<h3><a href="/home/">返回客户中心</a></h3>
+		</div>
+		{%endblock%}
