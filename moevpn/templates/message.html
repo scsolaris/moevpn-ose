@@ -1,0 +1,11 @@
+{%extends "home.html"%}
+{%block content%}
+     <ul>
+	 <li>时间：{{message.time}}</li>
+	 <li>主题：{{message.subject}}</li>
+	 <li>发送者：{{message.sender}}</li>
+     </ul>
+     <div class="well">
+	 {{message.content|safe}}
+     </div>
+{%endblock%}

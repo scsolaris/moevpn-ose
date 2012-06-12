@@ -1,114 +1,22 @@
 {%extends "base.html"%}
-{%block title%}
-MOECN.NET-客户中心
-{%endblock%}
-	 {%block nav%}
-          <ul class="nav">
-            <li><a href="/">首页</a></li>
-            <li><a href="/home/">客户中心</a></li>
-            <li><a href="/kb/">帮助中心</a></li>
-            <li><a href="/download/">下载中心</a></li>
-            <li><a href="/logout/">注销</a></li>
-          </ul>
-         {%endblock%}
-{%block container%}
-    <div class="main">
-	 <h1>客户中心</h1>
-	 <hr>
-    <h3>我的VPN</h3>
-    {%if vpn_accounts%}
-    <table class="table">
-    <tr>
-				<th>VPN帐号</th>
-				<th>VPN密码</th>
-				<th>VPN方案</th>
-				<th>付款周期</th>
-				<th>优惠代码</th>
-				<th>本月流量配额</th>
-				<th>本月已使用流量</th>
-				<th>到期时间</th>
-				<th>帐号状态</th>
-				<th>帐号操作</th>
-	 </tr>
-	 {%for vpn_account in vpn_accounts%}
-	 <tr>
-			        <td>{{vpn_account.username}}</td>
-				<td><a class="btn" href="javascript:void(0)" onClick="javascript:alert('您的VPN密码为{{vpn_account.password}}');">查看密码</a></td>
-				<td>{{vpn_account.plan}}</td>
-				<td>{{vpn_account.cycle}}</td>
-				<td><span class="label">{{vpn_account.promotion}}</span></td>
-				<td>{{vpn_account.quota_bytes}}</td>
-				<td>{{vpn_account.quota_used}}</td>
-				<td>{{vpn_account.expiry}}</td>
-				{%if vpn_account.status %}
-				<td><span class="label label-success">True</span></td>
-				{%else%}
-				<td><span class="label label-warning">False</span></td>
-				{%endif%}
-				<td>
-				<div class="btn-group">
-				<a class="btn btn-primary" href="javascript:void(0)" onclick="javascript:if(confirm('确认续费？')){location.href='/vpn/account_renew/{{vpn_account.username}}/';}">帐号续费</a>
-				<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>				
-				<ul class="dropdown-menu">
-				<li><a href="/vpn/change_password/{{vpn_account.username}}/">修改密码</a></li>				
-				</ul>
-				</div>
-				</td>
-	 </tr>
-	 {%endfor%}
-    </table>
-    {%else%}
-			<span style="color: red; ">没有VPN！</span>
-	{%endif%}
-    <h3>我的订单</h3>
-    {%if vpn_orders%}
-    <table class="table">
-			<tr>
-				<th>订单号</th>
-				<th>时间</th>
-				<th>VPN帐号</th>
-				<th>VPN方案</th>
-				<th>付款周期</th>
-				<th>订单金额</th>
-				<th>折扣</th>
-				<th>优惠代码</th>
-				<th>订单状态</th>
-				<th>订单操作</th>
-			</tr>
-			{%for vpn_order in vpn_orders reversed%}
-			<tr>
-				<td>{{vpn_order.order_id}}</td>
-				<td>{{vpn_order.order_time}}</td>
-				<td>{{vpn_order.username}}</td>
-				<td>{{vpn_order.plan}}</td>
-				<td>{{vpn_order.cycle}}</td>
-				<td>{{vpn_order.price}}</td>
-				<td>{{vpn_order.discount}}</td>
-				<td><span class="label">{{vpn_order.promotion}}</span></td>
-				{%ifequal vpn_order.status "PAID"%}
-				<td><span class="label label-success">PAID</span></td>
-				{%endifequal%}
-				{%ifequal vpn_order.status "UNPAID"%}
-				<td><span class="label label-important">UNPAID</span></td>
-				{%endifequal%}
-				{%ifequal vpn_order.status "CANCELLED"%}
-				<td><span class="label label-warning">CANCELLED</span></td>
-				{%endifequal%}
-				<td>
-				<div class="btn-group">
-				<a class="btn btn-success" href="javascript:void(0)" onclick="javascript:if(confirm('确认支付订单？')){location.href='/vpn/order_payment/{{vpn_order.order_id}}/';}"><i class="icon-shopping-cart icon-white"></i>在线支付</a>
-				<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>				
-				<ul class="dropdown-menu">				
-				<li><a href="javascript:void(0)" onclick="javascript:if(confirm('确认取消订单？')){location.href='/vpn/order_cancel/{{vpn_order.order_id}}/';}"><i class="icon-trash icon-black"></i>取消订单</a></li>
-				</ul>				
-				</div>
-				</td>
-			</tr>
-			{%endfor%}
-	 </table>
-	 {%else%}
-				<span style="color: red; ">没有订单！</span>
-	 {%endif%}
-	 <h3><a href="/vpn/order/">在线提交订单</a><h3>
-    </div>
-{%endblock%}
+	{%block title%}
+	MOECN.NET-客户中心
+	{%endblock%}
+		{%block container%}
+		<div class="main">
+		<h1>客户中心</h1>
+		<hr>
+		{%block homenav%}
+		<ul class="nav nav-pills">
+		    <li {%ifequal active "account" %}class="active"{%endifequal%}><a href="/home/account/" ><b>我的VPN帐号</b></a></li>
+		    <li {%ifequal active "order" %}class="active"{%endifequal%}><a href="/home/order/" ><b>我的订单</b></a></li>
+		    <!--<li {%ifequal active "ticket" %}class="active"{%endifequal%}><a href="/home/ticket/" ><b>在线支持</b></a></li> -->
+		    <li {%ifequal active "profile" %}class="active"{%endifequal%}><a href="/home/profile/" ><b>我的资料</b></a></li>
+		    <li {%ifequal active "message" %}class="active"{%endifequal%}><a href="/home/message/" ><b>站内信件</b></a></li>
+		    <li class="pull-right active"><a href="/vpn/order/"><i class="icon-plus icon-white"></i><b>新增VPN帐号</b></a></li>
+		</ul>
+		{%endblock%}
+		    {%block content%}
+		    {%endblock%}
+		</div>
+		{%endblock%}

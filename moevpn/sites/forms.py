@@ -41,3 +41,32 @@ class LoginForm(forms.Form):
     except User.DoesNotExist:
 	self._errors['username'] = ErrorList(['帐号不存在'])
     return self.cleaned_data
+
+class ProfileForm(forms.Form):
+  username = forms.CharField(min_length=4,max_length=30,label=u"用户名",widget=forms.HiddenInput)
+  firstname = forms.CharField(min_length=0,max_length=30,label=u"名",required=False)
+  lastname = forms.CharField(min_length=0,max_length=30,label=u"姓",required=False)
+  email = forms.EmailField(max_length=30,label="Email")
+  oldpassword = forms.CharField(min_length=0,max_length=60,label="原密码",widget=forms.PasswordInput,required=False)
+  newpassword = forms.CharField(min_length=0,max_length=60,label="新密码",widget=forms.PasswordInput,required=False)
+  def clean(self):
+      oldpassword = self.cleaned_data['oldpassword']
+      newpassword = self.cleaned_data['newpassword']
+      username = self.cleaned_data['username']
+      if not oldpassword and not newpassword:
+          return self.cleaned_data
+      elif oldpassword and newpassword:
+          user = User.objects.get(username=username)
+          if user.check_password(oldpassword):
+              return self.cleaned_data
+          else:
+              self._errors['oldpassword'] = ErrorList(['密码错误'])
+              return self.cleaned_data
+      elif not oldpassword:
+          self._errors['oldpassword'] = ErrorList(['原密码不能为空'])
+          return self.cleaned_data
+      elif not newpassword:
+          self._errors['newpassword'] = ErrorList(['新密码不能为空'])
+          return self.cleaned_data
+      else:
+          return self.cleaned_data

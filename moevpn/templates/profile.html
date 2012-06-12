@@ -1,0 +1,17 @@
+{%extends "home.html"%}
+{%block content%}
+    <div class="well">
+    <form action="" method="POST">{% csrf_token %}
+    <table> 
+	<tr><td><label><b>用户名：</b></label></td><td>{{user.username}}</td><td><b>上次登录：</b></td><td>{{user.last_login}}</td><td>{{form.username}}</td></tr>				
+	<tr><td><label><b>名：</b></label></td><td>{{form.firstname}}</td><td>{{form.firstname.errors}}</td></tr>
+	<tr><td><label><b>姓：</b></label></td><td>{{form.lastname}}</td><td>{{form.lastname.errors}}</td></tr>
+	<tr><td><label><b>Email：</b></label></td><td>{{form.email}}</td><td>{{form.email.errors}}</td></tr>
+	<tr><td><label><b>原密码：</b></label></td><td>{{form.oldpassword}}</td><td>{{form.oldpassword.errors}}</td></tr>				
+	<tr><td><label><b>新密码：</b></label></td><td>{{form.newpassword}}</td><td>{{form.newpassword.errors}}</td></tr>				
+    </table>
+	<input class="btn btn-primary" type="submit" name="submit" value="提交修改" />
+	<input class="btn" type="reset" name="reset" value="重置" />
+    </form>
+    </div>
+{%endblock%}

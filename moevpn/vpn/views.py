@@ -37,16 +37,19 @@ def order(request):
             order.price = int(cycle.quota/30) * cycle.discount * plan.price * plan.discount
             order.discount = cycle.discount * plan.discount
 	order.save()
-	email = request.user.email
-	send_order_mail(order.username,email,order.password,order.cycle,order.plan,order.price)
-	return HttpResponseRedirect("/home/")
+	send_order_mail(request.user,order.username,order.password,order.cycle,order.plan,order.price)
+	return HttpResponseRedirect("/home/order/")
       else:
-        c = {'form':form}
+        c = {'form':form,
+            'user':request.user,
+            'active':'order'}
         c.update(csrf(request))
 	return render_to_response("order.html",c)
   else:	
       form = OrderForm()
-      c = {'form':form}
+      c = {'form':form,
+           'user':request.user,
+           'active':'order'}
       c.update(csrf(request))
       return render_to_response("order.html",c)
 
@@ -64,26 +67,26 @@ def change_password(request,username):
 	if account.password == old_password:
 	    account.password = new_password
 	    account.save()
-	    return HttpResponseRedirect("/home/")
+	    return HttpResponseRedirect("/home/account/")
 	else:
 	     form = ChangePasswdForm()
 	     form.errors['old_password'] = u"密码错误！"
-             c = {'form':form}
+             c = {'form':form,'user':request.user}
              c.update(csrf(request))
 	     return render_to_response("change_password.html",c)
       except Account.DoesNotExist:
 	form = ChangePasswdForm()
 	form.errors['old_password'] = u"帐号不存在！"
-        c = {'form':form}
+        c = {'form':form,'user':request.user}
         c.update(csrf(request))
 	return render_to_response("change_password.html",c)
     else:
-      c = {'form':form}
+      c = {'form':form,'user':request.user}
       c.update(csrf(request))
       return render_to_response("change_password.html",c)
   else:
     form = ChangePasswdForm()
-    c = {'form':form}
+    c = {'form':form,'user':request.user}
     c.update(csrf(request))
     return render_to_response("change_password.html",c)
 
@@ -95,9 +98,9 @@ def order_cancel(request,order_id):
     order = Order.objects.get(user=user,order_id=order_id,status="UNPAID")
     order.status = "CANCELLED"
     order.save()
-    return HttpResponseRedirect("/home/")
+    return HttpResponseRedirect("/home/order/")
   except Order.DoesNotExist:
-    return HttpResponseRedirect("/home/")
+    return HttpResponseRedirect("/home/order/")
 
 @login_required
 def order_payment(request,order_id):
@@ -112,7 +115,7 @@ def order_payment(request,order_id):
     url = create_trade_by_buyer(order_id, subject, body, price, quantity)
     return HttpResponseRedirect(url)
   except Order.DoesNotExist:
-    return HttpResponseRedirect("/home/")
+    return HttpResponseRedirect("/home/order/")
 
 @login_required
 def account_renew(request,username):
@@ -134,7 +137,7 @@ def account_renew(request,username):
         order.price = int(account.cycle.quota/30) * account.cycle.discount * account.plan.discount * account.plan.price
         order.discount = account.cycle.discount * account.plan.discount
     order.save()
-    send_order_mail(order.username,user.email,order.password,order.cycle,order.plan,order.price)
-    return HttpResponseRedirect("/home/")
+    send_order_mail(user,order.username,order.password,order.cycle,order.plan,order.price)
+    return HttpResponseRedirect("/home/order/")
   except Exception:
-    return HttpResponseRedirect("/home/")
+    return HttpResponseRedirect("/home/account/")

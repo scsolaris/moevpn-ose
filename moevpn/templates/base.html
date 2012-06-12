@@ -30,11 +30,18 @@
 	 {%block nav%}
           <ul class="nav">
             <li><a href="/">首页</a></li>
-            <li><a href="/login/">客户中心</a></li>
+            <li><a href="/home/">客户中心</a></li>
             <li><a href="/kb/">帮助中心</a></li>
             <li><a href="/download/">下载中心</a></li>
-            <li><a href="/reg/">注册</a></li>
           </ul>
+	  <ul class="nav pull-right">
+	    {%if user.is_authenticated%}
+            <li><a href="/logout/">注销</a></li>
+	    {%else%}
+            <li><a href="/login/">登录</a></li>
+            <li><a href="/reg/">注册</a></li>
+	    {%endif%}
+	  </ul>
          {%endblock%}
         </div>
       </div>

@@ -5,10 +5,14 @@ from django.contrib import admin
 from models import *
 
 class NotifacationAdmin(admin.ModelAdmin):
-  list_display = ('name','title','content')
+  list_display = ('name','title')
 
 class SettingAdmin(admin.ModelAdmin):
   list_display = ('name','title','content')
 
+class MessageAdmin(admin.ModelAdmin):
+  list_display = ('id','user','time','subject')
+
 admin.site.register(Notifacation,NotifacationAdmin)
 admin.site.register(Setting,SettingAdmin)
+admin.site.register(Message,MessageAdmin)

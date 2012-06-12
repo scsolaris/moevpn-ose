@@ -1,0 +1,23 @@
+{%extends "home.html"%}
+{%block content%}
+    <table class="table">
+	<tr>
+	    <th>时间</th>
+	    <th>主题</th>
+	    <th>发送者</th>
+	    <th>状态</th> 
+	</tr>
+	{%for message in messages reversed%}
+	<tr>
+	    <td>{{message.time}}</td>
+	    <td><a href="/home/message/{{message.id}}/">{{message.subject}}</a></td>
+	    <td>{{message.sender}}</td>
+	    {% if message.active %}
+	    <td><span class="label label-success">未读</span></td>
+	    {% else %}
+	    <td><span class="label">已读</span></td>
+	    {% endif %}
+	</tr>
+	{%endfor%}
+    </table>
+{%endblock%}

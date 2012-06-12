@@ -1,0 +1,46 @@
+{%extends "home.html"%}
+{%block content%}
+    {%if vpn_accounts%}
+    <table class="table">
+    <tr>
+				<th>VPN帐号</th>
+				<th>VPN方案</th>
+				<th>付款周期</th>
+				<th>优惠代码</th>
+				<th>本月流量配额</th>
+				<th>本月已使用流量</th>
+				<th>到期时间</th>
+				<th>帐号状态</th>
+				<th>帐号操作</th>
+	 </tr>
+	 {%for vpn_account in vpn_accounts%}
+	 <tr>
+			        <td>{{vpn_account.username}}</td>
+				<td>{{vpn_account.plan}}</td>
+				<td>{{vpn_account.cycle}}</td>
+				<td><span class="label">{{vpn_account.promotion}}</span></td>
+				<td>{{vpn_account.quota_bytes}}</td>
+				<td>{{vpn_account.quota_used}}</td>
+				<td>{{vpn_account.expiry}}</td>
+				{%if vpn_account.status %}
+				<td><span class="label label-success">True</span></td>
+				{%else%}
+				<td><span class="label label-warning">False</span></td>
+				{%endif%}
+				<td>
+				<div class="btn-group">
+				<a class="btn btn-primary" href="javascript:void(0)" onclick="javascript:if(confirm('确认续费？')){location.href='/vpn/account_renew/{{vpn_account.username}}/';}">帐号续费</a>
+				<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>				
+				<ul class="dropdown-menu">
+				<li><a href="javascript:void(0)" onClick="javascript:alert('您的VPN密码为{{vpn_account.password}}');">查看密码</a></li>				
+				<li><a href="/vpn/change_password/{{vpn_account.username}}/">修改密码</a></li>				
+				</ul>
+				</div>
+				</td>
+	 </tr>
+	 {%endfor%}
+    </table>
+    {%else%}
+    <p><span style="color: red; ">没有VPN帐号！</span></p>
+    {%endif%} 
+{%endblock%}

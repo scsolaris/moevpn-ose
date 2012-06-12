@@ -7,8 +7,7 @@
 		<div class="main">
 			<h1>用户注册</h1>
 			<hr>
-			<form action="/reg/" method="POST">
-			{% csrf_token %}
+			<form action="/reg/" method="POST">{% csrf_token %}
 			<table>
 				<tr><th><label for="id_username">用户名:</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>
 				<tr><th><label for="id_email">Email:</label></th><td>{{form.email}}</td><td>{{form.email.errors}}</td></tr>

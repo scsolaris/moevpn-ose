@@ -2,8 +2,9 @@
 # Chon<chon219@gmail.com>
 
 from django.core.mail import EmailMessage
-from models import Notifacation
+from models import Notifacation,Message
 from moevpn import settings
+from datetime import datetime
 import re
 
 def send_new_reg(username):
@@ -26,21 +27,28 @@ def send_new_order(username):
   msg.send()
   return True
 
-def send_reg_mail(username,email):
+def send_reg_mail(user):
   from_email = settings.MAIL_SENDER
-  to_email = email
+  to_email = user.email
   notifacation = Notifacation.objects.get(name="register")
   subject = notifacation.title
-  html_content = re.sub("{username}",username,notifacation.content)
+  html_content = re.sub("{username}",user.username,notifacation.content)
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
   msg.send()
-  send_new_reg(username)
+  message = Message()
+  message.user = user
+  message.subject = subject
+  message.time = datetime.now()
+  message.content = html_content
+  message.sender = "SYSTEM"
+  message.save()
+  send_new_reg(user.username)
   return True
 
-def send_order_mail(username,email,password,cycle,plan,price):
+def send_order_mail(user,username,password,cycle,plan,price):
   from_email = settings.MAIL_SENDER
-  to_email = email
+  to_email = user.email
   notifacation = Notifacation.objects.get(name="order")
   subject = notifacation.title
   html_content = re.sub("{vpn_username}",username,notifacation.content)
@@ -51,27 +59,30 @@ def send_order_mail(username,email,password,cycle,plan,price):
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
   msg.send()
+  message = Message()
+  message.user = user
+  message.subject = subject
+  message.time = datetime.now()
+  message.content = html_content
+  message.sender = "SYSTEM"
+  message.save()
   send_new_order(username)
   return True
 
-def send_active_mail(username,email):
+def send_active_mail(user):
   from_email = settings.MAIL_SENDER
-  to_email = email
+  to_email = user.email
   notifacation = Notifacation.objects.get(name="active")
   subject = notifacation.title
   html_content = notifacation.content
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
-  msg.send()
-  return True
-
-def send_renew_mail(username,email):
-  from_email = settings.MAIL_SENDER
-  to_email = email
-  notifacation = Notifacation.objects.get(name="renew")
-  subject = notifacation.title
-  html_content = re.sub("{username}",username,notifacation.content)
-  msg = EmailMessage(subject,html_content,from_email,[to_email])
-  msg.content_subtype = "html"
+  message = Message()
+  message.user = user
+  message.subject = subject
+  message.time = datetime.now()
+  message.content = html_content
+  message.sender = "SYSTEM"
+  message.save()
   msg.send()
   return True

@@ -48,7 +48,7 @@ def make_order_paid(order_id):
   account.quota_bytes = plan.quota
   account.promotion = order.promotion
   account.save()
-  send_active_mail(username,user.email)
+  send_active_mail(user)
   return True
 
 def promotion_is_valid(user,code,plan):

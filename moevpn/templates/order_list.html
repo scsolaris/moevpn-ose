@@ -1,0 +1,51 @@
+{%extends "home.html"%}
+{%block content%}
+    {%if vpn_orders%}
+    <table class="table">
+			<tr>
+				<th>订单号</th>
+				<th>时间</th>
+				<th>VPN帐号</th>
+				<th>VPN方案</th>
+				<th>付款周期</th>
+				<th>订单金额</th>
+				<th>折扣</th>
+				<th>优惠代码</th>
+				<th>订单状态</th>
+				<th>订单操作</th>
+			</tr>
+			{%for vpn_order in vpn_orders reversed%}
+			<tr>
+				<td>{{vpn_order.order_id}}</td>
+				<td>{{vpn_order.order_time}}</td>
+				<td>{{vpn_order.username}}</td>
+				<td>{{vpn_order.plan}}</td>
+				<td>{{vpn_order.cycle}}</td>
+				<td>{{vpn_order.price}}</td>
+				<td>{{vpn_order.discount}}</td>
+				<td><span class="label">{{vpn_order.promotion}}</span></td>
+				{%ifequal vpn_order.status "PAID"%}
+				<td><span class="label label-success">PAID</span></td>
+				{%endifequal%}
+				{%ifequal vpn_order.status "UNPAID"%}
+				<td><span class="label label-important">UNPAID</span></td>
+				{%endifequal%}
+				{%ifequal vpn_order.status "CANCELLED"%}
+				<td><span class="label label-warning">CANCELLED</span></td>
+				{%endifequal%}
+				<td>
+				<div class="btn-group">
+				<a class="btn btn-success" href="javascript:void(0)" onclick="javascript:if(confirm('确认支付订单？')){location.href='/vpn/order_payment/{{vpn_order.order_id}}/';}"><i class="icon-shopping-cart icon-white"></i>在线支付</a>
+				<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>				
+				<ul class="dropdown-menu">				
+				<li><a href="javascript:void(0)" onclick="javascript:if(confirm('确认取消订单？')){location.href='/vpn/order_cancel/{{vpn_order.order_id}}/';}"><i class="icon-trash"></i>取消订单</a></li>
+				</ul>				
+				</div>
+				</td>
+			</tr>
+			{%endfor%}
+	 </table>
+	 {%else%}
+	 <p><span style="color: red; ">没有订单！</span></p>
+	 {%endif%}
+{%endblock%}
