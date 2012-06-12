@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^login/$','moevpn.sites.views.log_in'),
     url(r'^logout/$','moevpn.sites.views.log_out'),
     url(r'^download/$','moevpn.sites.views.download'),
+    url(r'^tos/$','moevpn.sites.views.tos'),
     url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
 )

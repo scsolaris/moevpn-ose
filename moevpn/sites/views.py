@@ -40,12 +40,14 @@ def reg(request):
 	send_reg_mail(user)
 	return HttpResponseRedirect('/login/')
     else:
-        c = {'form':form,'user':request.user}
+        tos = Setting.objects.get(name="tos")
+        c = {'form':form,'user':request.user,'tos':tos}
         c.update(csrf(request))
 	return render_to_response('reg.html',c)
   else:
     form = RegForm()
-    c = {'form':form,'user':request.user}
+    tos = Setting.objects.get(name="tos")
+    c = {'form':form,'user':request.user,'tos':tos}
     c.update(csrf(request))
     return render_to_response('reg.html',c)
 
@@ -131,8 +133,12 @@ def order_list(request):
       'active':'order'})
 
 def download(request):
-  html = Setting.objects.get(name="download")
-  return render_to_response("download.html",{"download":html.content,'user':request.user})
+  download = Setting.objects.get(name="download")
+  return render_to_response("download.html",{"download":download,'user':request.user})
+
+def tos(request):
+  tos = Setting.objects.get(name="tos")
+  return render_to_response("tos.html",{"tos":tos,'user':request.user})
 
 @login_required
 def profile(request):
