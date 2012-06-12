@@ -8,7 +8,7 @@ class NotifacationAdmin(admin.ModelAdmin):
   list_display = ('name','title')
 
 class SettingAdmin(admin.ModelAdmin):
-  list_display = ('name','title','content')
+  list_display = ('name','title')
 
 class MessageAdmin(admin.ModelAdmin):
   list_display = ('id','user','time','subject')

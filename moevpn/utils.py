@@ -60,3 +60,10 @@ def promotion_is_valid(user,code,plan):
             return False
     except Promotion.DoesNotExist:
         return False
+
+def message_count(user):
+    try:
+        messages = Message.objects.filter(user=user,active=True)
+        return len(messages)
+    except Exception:
+        return 0
