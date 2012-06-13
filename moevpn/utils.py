@@ -67,3 +67,10 @@ def message_count(user):
         return len(messages)
     except Exception:
         return 0
+
+def ticket_count(user):
+    try:
+        threads = TicketThread.objects.filter(user=user,status=True)
+        return len(threads)
+    except Exception:
+        return 0

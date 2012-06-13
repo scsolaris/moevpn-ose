@@ -8,7 +8,7 @@ from django.core.context_processors import csrf
 
 from datetime import datetime,timedelta
 from moevpn.vpn.models import *
-from moevpn.utils import quota_used,message_count
+from moevpn.utils import quota_used,message_count,ticket_count
 from mail import send_reg_mail
 from models import *
 from forms import *
@@ -109,6 +109,7 @@ def account_list(request):
       'vpn_accounts':vpn_accounts,
       'user':request.user,
       "message_count":message_count(request.user),
+      "ticket_count":ticket_count(request.user),
       'active':'account'})
 
 @login_required
@@ -132,6 +133,7 @@ def order_list(request):
       'vpn_orders':vpn_orders,
       'user':request.user,
       "message_count":message_count(request.user),
+      "ticket_count":ticket_count(request.user),
       'active':'order'})
 
 def download(request):
@@ -162,6 +164,7 @@ def profile(request):
         c = {'form':form,
             'user':request.user,
             "message_count":message_count(request.user),
+            "ticket_count":ticket_count(request.user),
             'active':'profile'}
         c.update(csrf(request))
         return render_to_response('profile.html',c)
@@ -169,6 +172,7 @@ def profile(request):
         c = {'form':form,
             'user':request.user,
             "message_count":message_count(request.user),
+            "ticket_count":ticket_count(request.user),
             'active':'profile'}
         c.update(csrf(request))
         return render_to_response('profile.html',c)
@@ -181,6 +185,7 @@ def profile(request):
       c = {'form':form,
            'user':request.user,
             "message_count":message_count(request.user),
+            "ticket_count":ticket_count(request.user),
            'active':'profile'}
       c.update(csrf(request))
       return render_to_response('profile.html',c)
@@ -193,6 +198,7 @@ def message_list(request):
         "messages":messages,
         "user":request.user,
         "message_count":message_count(request.user),
+        "ticket_count":ticket_count(request.user),
         "active":"message"})
 
 @login_required
@@ -207,6 +213,7 @@ def message(request,message_id):
             "message":message,
             "user":user,
             "message_count":message_count(request.user),
+            "ticket_count":ticket_count(request.user),
             "active":"message"})
     except Message.DoesNotExist:
         return HttpResponseRedirect("/home/message/")
@@ -219,6 +226,7 @@ def ticket_list(request):
         "threads":threads,
         "user":user,
         "message_count":message_count(request.user),
+        "ticket_count":ticket_count(request.user),
         "active":"ticket"})
 
 @login_required
@@ -245,6 +253,7 @@ def ticket(request,thread_id):
                  "form":form,
                  "user":user,
                  "message_count":message_count(request.user),
+                 "ticket_count":ticket_count(request.user),
                  "active":"ticket"}
             c.update(csrf(request))
             return render_to_response("ticket_thread.html",c)
@@ -256,6 +265,7 @@ def ticket(request,thread_id):
                  "form":form,
                  "user":user,
                  "message_count":message_count(request.user),
+                 "ticket_count":ticket_count(request.user),
                  "active":"ticket"}
             c.update(csrf(request))
             return render_to_response("ticket_thread.html",c)
@@ -284,6 +294,7 @@ def ticket_submit(request):
             c = {"form":form,
                  "user":user,
                  "message_count":message_count(request.user),
+                 "ticket_count":ticket_count(request.user),
                  "active":"ticket"}
             c.update(csrf(request))
             return render_to_response("ticket_submit.html",c)
@@ -292,6 +303,7 @@ def ticket_submit(request):
         c = {"form":form,
              "user":user,
              "message_count":message_count(request.user),
+             "ticket_count":ticket_count(request.user),
              "active":"ticket"}
         c.update(csrf(request))
         return render_to_response("ticket_submit.html",c)

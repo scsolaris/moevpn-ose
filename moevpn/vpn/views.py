@@ -11,7 +11,7 @@ from models import *
 from forms import *
 from moevpn.sites.mail import send_order_mail
 from moevpn.alipay.alipay import create_trade_by_buyer
-from moevpn.utils import promotion_is_valid
+from moevpn.utils import promotion_is_valid,message_count,ticket_count
 
 @login_required
 def order(request):
@@ -42,6 +42,8 @@ def order(request):
       else:
         c = {'form':form,
             'user':request.user,
+            'message_count':message_count(request.user),
+            'ticket_count':ticket_count(request.user),
             'active':'order'}
         c.update(csrf(request))
 	return render_to_response("order.html",c)
@@ -49,6 +51,8 @@ def order(request):
       form = OrderForm()
       c = {'form':form,
            'user':request.user,
+            'message_count':message_count(request.user),
+            'ticket_count':ticket_count(request.user),
            'active':'order'}
       c.update(csrf(request))
       return render_to_response("order.html",c)
@@ -71,22 +75,34 @@ def change_password(request,username):
 	else:
 	     form = ChangePasswdForm()
 	     form.errors['old_password'] = u"密码错误！"
-             c = {'form':form,'user':request.user}
+             c = {'form':form,
+                  'message_count':message_count(request.user),
+                  'ticket_count':ticket_count(request.user),
+                  'user':request.user}
              c.update(csrf(request))
 	     return render_to_response("change_password.html",c)
       except Account.DoesNotExist:
 	form = ChangePasswdForm()
 	form.errors['old_password'] = u"帐号不存在！"
-        c = {'form':form,'user':request.user}
+        c = {'form':form,
+             'message_count':message_count(request.user),
+             'ticket_count':ticket_count(request.user),
+             'user':request.user}
         c.update(csrf(request))
 	return render_to_response("change_password.html",c)
     else:
-      c = {'form':form,'user':request.user}
+      c = {'form':form,
+           'message_count':message_count(request.user),
+           'ticket_count':ticket_count(request.user),
+           'user':request.user}
       c.update(csrf(request))
       return render_to_response("change_password.html",c)
   else:
     form = ChangePasswdForm()
-    c = {'form':form,'user':request.user}
+    c = {'form':form,
+         'message_count':message_count(request.user),
+         'ticket_count':ticket_count(request.user),
+         'user':request.user}
     c.update(csrf(request))
     return render_to_response("change_password.html",c)
 
