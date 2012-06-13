@@ -13,7 +13,15 @@
 		    <li {%ifequal active "profile" %}class="active"{%endifequal%}><a href="/home/profile/" ><b>我的资料</b></a></li>
 		    <li {%ifequal active "ticket" %}class="active"{%endifequal%}><a href="/home/ticket/" ><b>在线支持</b>{%if ticket_count%} <span class="badge badge-info">{{message_count}}</span>{%endif%}</a></li>
 		    <li {%ifequal active "message" %}class="active"{%endifequal%}><a href="/home/message/" ><b>站内信件</b>{%if message_count%} <span class="badge badge-info">{{message_count}}</span>{%endif%}</a></li>
+		    {%ifequal active "account"%}
 		    <li class="pull-right active"><a href="/vpn/order/"><i class="icon-plus icon-white"></i><b>新增VPN帐号</b></a></li>
+		    {%endifequal%}
+		    {%ifequal active "order"%}
+		    <li class="pull-right active"><a href="/vpn/order/"><i class="icon-plus icon-white"></i><b>提交订单</b></a></li>
+		    {%endifequal%}
+		    {%ifequal active "ticket"%}
+		    <li class="pull-right active"><a href="/home/ticket/submit/"><i class="icon-plus icon-white"></i><b>提交支持单</b></a></li>
+		    {%endifequal%}
 		</ul>
 		{%endblock%}
 		    {%block content%}
