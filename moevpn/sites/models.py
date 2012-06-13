@@ -34,6 +34,6 @@ class TicketThread(models.Model):
 
 class Ticket(models.Model):
     thread = models.ForeignKey(TicketThread)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=False)
     content = models.TextField()
     sender = models.CharField(max_length=30)
