@@ -1,5 +1,32 @@
 [
   {
+    "pk": "CYCLE1", 
+    "model": "vpn.cycle", 
+    "fields": {
+      "discount": 1.0, 
+      "detail": "CYCLE1/\u4e24\u4e2a\u6708", 
+      "quota": 61
+    }
+  }, 
+  {
+    "pk": "CYCLE2", 
+    "model": "vpn.cycle", 
+    "fields": {
+      "discount": 0.9, 
+      "detail": "CYCLE2/\u4e09\u4e2a\u6708", 
+      "quota": 92
+    }
+  }, 
+  {
+    "pk": "CYCLE3", 
+    "model": "vpn.cycle", 
+    "fields": {
+      "discount": 0.8, 
+      "detail": "CYCLE3/\u516d\u4e2a\u6708", 
+      "quota": 182
+    }
+  }, 
+  {
     "pk": "PLAN1", 
     "model": "vpn.plan", 
     "fields": {
@@ -30,33 +57,6 @@
       "description": "<ul>\r\n<li>OpenVPN/L2TP/PPTP</li>\r\n<li>\u652f\u6301IPv6/IPv4</li>\r\n<li>\u6d41\u91cf100GB/\u6708</li>\r\n<li>\u6ee1\u8db3\u5728\u7ebf\u89c6\u9891\u89c2\u770b\u4ee5\u53ca\u5176\u4ed6\u4e00\u5207\u9700\u6c42\uff01</li>\r\n<li>\u652f\u6301\u7ec8\u7aef\uff1aWindows/Mac/Linux/iOS/Android</li>\r\n<li>\u4ef7\u683c\uff1aRMB 15.00/\u6708</li>\r\n<li><span style=\"color:red;\">\u4f18\u60e0\uff1a9\u6298/\u4e09\u4e2a\u6708 8\u6298/\u516d\u4e2a\u6708 VIP\u7528\u6237\u66f4\u591a\u4f18\u60e0\uff01</span></li>\r\n</ul>", 
       "detail": "PLAN3/\u6d41\u91cf100GB", 
       "quota": "107374182400"
-    }
-  }, 
-  {
-    "pk": "CYCLE1", 
-    "model": "vpn.cycle", 
-    "fields": {
-      "discount": 1.0, 
-      "detail": "CYCLE1/\u4e24\u4e2a\u6708", 
-      "quota": 61
-    }
-  }, 
-  {
-    "pk": "CYCLE2", 
-    "model": "vpn.cycle", 
-    "fields": {
-      "discount": 0.90000000000000002, 
-      "detail": "CYCLE2/\u4e09\u4e2a\u6708", 
-      "quota": 92
-    }
-  }, 
-  {
-    "pk": "CYCLE3", 
-    "model": "vpn.cycle", 
-    "fields": {
-      "discount": 0.80000000000000004, 
-      "detail": "CYCLE3/\u516d\u4e2a\u6708", 
-      "quota": 182
     }
   }
 ]
