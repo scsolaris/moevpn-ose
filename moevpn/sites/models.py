@@ -28,12 +28,12 @@ class TicketThread(models.Model):
     user = models.ForeignKey(User)
     subject = models.CharField(max_length=128)
     time = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(default=True)
+    status = models.BooleanField(default=False)
     def __unicode__(self):
       return self.subject
 
 class Ticket(models.Model):
     thread = models.ForeignKey(TicketThread)
-    time = models.DateTimeField(auto_now_add=False)
+    time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     sender = models.CharField(max_length=30)
