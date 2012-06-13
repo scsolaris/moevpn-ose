@@ -7,6 +7,7 @@
 		<div class="main">
 			<h1>用户注册</h1>
 			<hr>
+			<div class="well">
 			<form action="/reg/" method="POST">{% csrf_token %}
 			<table>
 				<tr><th><label for="id_username">用户名:</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>
@@ -30,6 +31,7 @@
 			<p><a href="#rules" class="btn btn-primary" data-toggle="modal"/>提交注册</a>
 			<input class="btn" type="reset" id="reset" value="重置"/></input></p>
 			</form>	
+			</div>
 	    </div>
 	    {%endblock%}
 {%block script%}

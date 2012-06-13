@@ -6,6 +6,7 @@
 		<div class="main">
 			<h2>客户登录</h2>
 			<hr>
+			<div class="well">
 			<form action="/login/" method="POST">{% csrf_token %}
 				<table>
 					<tr><th><label for="id_username">用户名：</label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>
@@ -14,5 +15,6 @@
 				<p><input class="btn btn-primary" type="submit" id="submit" value="登录"/></input>
 				<input class="btn" type="reset" id="reset" value="重置"/></input></p>
 			</form>	
+			</div>
 		</div>
 		{%endblock%}

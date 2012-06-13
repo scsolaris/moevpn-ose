@@ -210,3 +210,88 @@ def message(request,message_id):
             "active":"message"})
     except Message.DoesNotExist:
         return HttpResponseRedirect("/home/message/")
+
+@login_required
+def ticket_list(request):
+    user = request.user
+    threads = TicketThread.objects.filter(user=user)
+    return render_to_response("ticket_list.html",{
+        "threads":threads,
+        "user":user,
+        "message_count":message_count(request.user),
+        "active":"ticket"})
+
+@login_required
+def ticket(request,thread_id):
+    user = request.user
+    thread_id = int(thread_id)
+    try:
+        thread = TicketThread.objects.get(user=user,id=thread_id)
+        thread.status = False
+        thread.save()
+        tickets = Ticket.objects.filter(thread=thread)
+        if request.method == "POST":
+            form = TicketForm(request.POST)
+            if form.is_valid():
+                cd = form.cleaned_data
+                newticket = Ticket()
+                newticket.subject = cd['subject']
+                newticket.content = cd['content']
+                newticket.sender = user.username
+                newticket.thread = thread
+                newticket.save()
+            c = {"thread":thread,
+                 "tickets":tickets,
+                 "form":form,
+                 "user":user,
+                 "message_count":message_count(request.user),
+                 "active":"ticket"}
+            c.update(csrf(request))
+            return render_to_response("ticket_thread.html",c)
+        else:
+            data = {"subject":"RE:"+thread.subject}
+            form = TicketForm(data)
+            c = {"thread":thread,
+                 "tickets":tickets,
+                 "form":form,
+                 "user":user,
+                 "message_count":message_count(request.user),
+                 "active":"ticket"}
+            c.update(csrf(request))
+            return render_to_response("ticket_thread.html",c)
+    except TicketThread.DoesNotExist:
+        return HttpResponseRedirect("/home/ticket/")
+
+@login_required
+def ticket_submit(request):
+    user = request.user
+    if request.method == "POST":
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            thread = TicketThread()
+            thread.user = user
+            thread.subject = cd['subject']
+            thread.save()
+            ticket = Ticket()
+            ticket.thread = thread
+            ticket.subject = thread.subject
+            ticket.content = cd['content']
+            ticket.sender = user.username
+            ticket.save()
+            return HttpResponseRedirect("/home/ticket/")
+        else:
+            c = {"form":form,
+                 "user":user,
+                 "message_count":message_count(request.user),
+                 "active":"ticket"}
+            c.update(csrf(request))
+            return render_to_response("ticket_submit.html",c)
+    else:
+        form = TicketForm()
+        c = {"form":form,
+             "user":user,
+             "message_count":message_count(request.user),
+             "active":"ticket"}
+        c.update(csrf(request))
+        return render_to_response("ticket_submit.html",c)

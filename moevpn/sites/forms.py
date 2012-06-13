@@ -70,3 +70,7 @@ class ProfileForm(forms.Form):
           return self.cleaned_data
       else:
           return self.cleaned_data
+
+class TicketForm(forms.Form):
+  subject = forms.CharField(min_length=2,max_length=128,widget=forms.TextInput(attrs={"class":"input-xlarge"}))
+  content = forms.CharField(min_length=2,max_length=1024,widget=forms.Textarea(attrs={"class":"input-xlarge"}),required=False)

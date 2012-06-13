@@ -1,0 +1,26 @@
+{%extends "home.html"%}
+{%block content%}
+<div class="well">
+     <form action="" method="POST" class="form-horizontal">{% csrf_token %}
+     <fieldset>
+	 <legend>提交支持单</legend>
+	 <div class="control-group">
+	     <label class="control-label"><b>主题</b></label>
+	     <div class="controls">
+		 {{form.subject}}{{form.subject.errors}}
+	     </div>
+	 </div>
+	 <div class="control-group">
+	     <label class="control-label"><b>内容</b></label>
+	     <div class="controls">
+		 {{form.content}}{{form.content.errors}}
+	     </div>
+	 </div>
+	 <div class="form-actions">
+	    <input class="btn btn-primary" type="submit" name="submit" value="提交支持单" />
+	    <input class="btn" type="reset" name="reset" value="重置" />
+	 </div>
+     </fieldset>
+     </form>
+ </div>
+{%endblock%}

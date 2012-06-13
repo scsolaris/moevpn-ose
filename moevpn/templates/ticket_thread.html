@@ -1,0 +1,36 @@
+{%extends "home.html"%}
+{%block content%}
+     <legend>支持单 #{{thread.id}}</legend>
+     <ul>
+	 <li>时间：{{thread.time}}</li>
+	 <li>主题：{{thread.subject}}</li>
+     </ul>
+     {%for ticket in tickets%}
+     <p>{{ticket.sender}}&nbsp;&nbsp;{{ticket.time}}</p>
+     <div class="well">
+	 <p>{{ticket.content}}</p>
+     </div>
+     <hr>
+     {%endfor%}
+     <form action="" method="POST" class="form-horizontal">{% csrf_token %}
+     <fieldset>
+	 <legend>提交回复</legend>
+	 <div class="control-group">
+	     <label class="control-label"><b>主题</b></label>
+	     <div class="controls">
+		 {{form.subject}}{{form.subject.errors}}
+	     </div>
+	 </div>
+	 <div class="control-group">
+	     <label class="control-label"><b>内容</b></label>
+	     <div class="controls">
+		 {{form.content}}{{form.content.errors}}
+	     </div>
+	 </div>
+	 <div class="form-actions">
+	    <input class="btn btn-primary" type="submit" name="submit" value="提交回复" />
+	    <input class="btn" type="reset" name="reset" value="重置" />
+	 </div>
+     </fieldset>
+     </form>
+{%endblock%}

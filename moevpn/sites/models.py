@@ -22,3 +22,18 @@ class Message(models.Model):
     sender = models.CharField(max_length=30)
     content = models.TextField()
     active = models.BooleanField(default=True)
+
+class TicketThread(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User)
+    subject = models.CharField(max_length=128)
+    time = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
+    def __unicode__(self):
+      return self.subject
+
+class Ticket(models.Model):
+    thread = models.ForeignKey(TicketThread)
+    time = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    sender = models.CharField(max_length=30)
