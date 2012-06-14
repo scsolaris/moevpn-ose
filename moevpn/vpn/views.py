@@ -78,6 +78,7 @@ def change_password(request,username):
              c = {'form':form,
                   'message_count':message_count(request.user),
                   'ticket_count':ticket_count(request.user),
+                  'active':'order',
                   'user':request.user}
              c.update(csrf(request))
 	     return render_to_response("change_password.html",c)
@@ -87,6 +88,7 @@ def change_password(request,username):
         c = {'form':form,
              'message_count':message_count(request.user),
              'ticket_count':ticket_count(request.user),
+             'active':'order',
              'user':request.user}
         c.update(csrf(request))
 	return render_to_response("change_password.html",c)
@@ -94,6 +96,7 @@ def change_password(request,username):
       c = {'form':form,
            'message_count':message_count(request.user),
            'ticket_count':ticket_count(request.user),
+           'active':'order',
            'user':request.user}
       c.update(csrf(request))
       return render_to_response("change_password.html",c)
@@ -102,6 +105,7 @@ def change_password(request,username):
     c = {'form':form,
          'message_count':message_count(request.user),
          'ticket_count':ticket_count(request.user),
+         'active':'order',
          'user':request.user}
     c.update(csrf(request))
     return render_to_response("change_password.html",c)
