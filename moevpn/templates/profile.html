@@ -1,17 +1,80 @@
 {%extends "home.html"%}
 {%block content%}
-    <div class="well">
-    <form action="" method="POST">{% csrf_token %}
-    <table> 
-	<tr><td><label><b>用户名：</b></label></td><td>{{user.username}}</td><td><b>上次登录：</b></td><td>{{user.last_login}}</td><td>{{form.username}}</td></tr>				
-	<tr><td><label><b>名：</b></label></td><td>{{form.firstname}}</td><td>{{form.firstname.errors}}</td></tr>
-	<tr><td><label><b>姓：</b></label></td><td>{{form.lastname}}</td><td>{{form.lastname.errors}}</td></tr>
-	<tr><td><label><b>Email：</b></label></td><td>{{form.email}}</td><td>{{form.email.errors}}</td></tr>
-	<tr><td><label><b>原密码：</b></label></td><td>{{form.oldpassword}}</td><td>{{form.oldpassword.errors}}</td></tr>				
-	<tr><td><label><b>新密码：</b></label></td><td>{{form.newpassword}}</td><td>{{form.newpassword.errors}}</td></tr>				
-    </table>
-	<input class="btn btn-primary" type="submit" name="submit" value="提交修改" />
-	<input class="btn" type="reset" name="reset" value="重置" />
+    <form action="" method="POST" class="form-horizontal">{% csrf_token %}
+	<fieldset>
+	<legend>我的资料</legend>
+	<div class="control-group">
+	    <label class="control-label"><b>用户名</b></label>
+	    <div class="controls">
+		<span class="uneditable-input">{{user.username}}<span>
+		{{form.username}}
+	    </div>
+	</div>
+	<div class="control-group">
+	    <label class="control-label"><b>上次登录</b></label>
+	    <div class="controls">
+		<span class="uneditable-input">{{user.last_login}}<span>
+	    </div>
+	</div>
+	<div class="control-group{%if form.firstname.errors%} error{%endif%}">
+	    <label class="control-label"><b>名</b></label>
+	    <div class="controls">
+		{{form.firstname}}
+		{%if form.firstname.errors%}
+		<div class="help-inline">
+		    {{form.firstname.errors}}
+		</div>
+		{%endif%}
+	    </div>
+	</div>
+	<div class="control-group{%if form.lastname.errors%} error{%endif%}">
+	    <label class="control-label"><b>姓</b></label>
+	    <div class="controls">
+		{{form.lastname}}
+		{%if form.lastname.errors%}
+		<div class="help-inline">
+		    {{form.lastname.errors}}
+		</div>
+		{%endif%}
+	    </div>
+	</div>
+	<div class="control-group{%if form.email.errors%} error{%endif%}">
+	    <label class="control-label"><b>电子邮件</b></label>
+	    <div class="controls">
+		{{form.email}}
+		{%if form.email.errors%}
+		<div class="help-inline">
+		    {{form.email.errors}}
+		</div>
+		{%endif%}
+	    </div>
+	</div>
+	<div class="control-group{%if form.oldpassword.errors%} error{%endif%}">
+	    <label class="control-label"><b>原密码</b></label>
+	    <div class="controls">
+		{{form.oldpassword}}
+		{%if form.oldpassword.errors%}
+		<div class="help-inline">
+		    {{form.oldpassword.errors}}
+		</div>
+		{%endif%}
+	    </div>
+	</div>
+	<div class="control-group{%if form.newpassword.errors%} error{%endif%}">
+	    <label class="control-label"><b>新密码</b></label>
+	    <div class="controls">
+		{{form.newpassword}}
+		{%if form.newpassword.errors%}
+		<div class="help-inline">
+		    {{form.newpassword.errors}}
+		</div>
+		{%endif%}
+	    </div>
+	</div>
+	<div class="form-actions">
+	    <input class="btn btn-primary" type="submit" name="submit" value="提交修改" />
+	    <input class="btn" type="reset" name="reset" value="重置" />
+	</div>
+	</fieldset>
     </form>
-    </div>
 {%endblock%}

@@ -43,12 +43,12 @@ class LoginForm(forms.Form):
     return self.cleaned_data
 
 class ProfileForm(forms.Form):
-  username = forms.CharField(min_length=4,max_length=30,label=u"用户名",widget=forms.HiddenInput)
-  firstname = forms.CharField(min_length=0,max_length=30,label=u"名",required=False)
-  lastname = forms.CharField(min_length=0,max_length=30,label=u"姓",required=False)
-  email = forms.EmailField(max_length=30,label="Email")
-  oldpassword = forms.CharField(min_length=0,max_length=60,label="原密码",widget=forms.PasswordInput,required=False)
-  newpassword = forms.CharField(min_length=0,max_length=60,label="新密码",widget=forms.PasswordInput,required=False)
+  username = forms.CharField(min_length=4,max_length=30,widget=forms.HiddenInput)
+  firstname = forms.CharField(min_length=0,max_length=30,required=False)
+  lastname = forms.CharField(min_length=0,max_length=30,required=False)
+  email = forms.EmailField(max_length=30)
+  oldpassword = forms.CharField(min_length=0,max_length=60,widget=forms.PasswordInput,required=False)
+  newpassword = forms.CharField(min_length=0,max_length=60,widget=forms.PasswordInput,required=False)
   def clean(self):
       oldpassword = self.cleaned_data['oldpassword']
       newpassword = self.cleaned_data['newpassword']
