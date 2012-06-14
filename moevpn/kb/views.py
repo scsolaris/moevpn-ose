@@ -28,11 +28,7 @@ def kb_category(request,category_name):
 
 def kb_post(request,post_id):
   try:
-    p = Post.objects.get(post_id=post_id)
-    post = {'title':p.title,
-            'content':p.content,
-            'time':p.post_time,
-            'author':p.user.username}
+    post = Post.objects.get(post_id=post_id)
     return render_to_response('kb_post.html',{
         'post':post,
         'user':request.user})
