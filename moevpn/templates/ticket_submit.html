@@ -4,16 +4,26 @@
      <form action="" method="POST" class="form-horizontal">{% csrf_token %}
      <fieldset>
 	 <legend>提交支持单</legend>
-	 <div class="control-group">
+	 <div class="control-group{%if form.subject.errors%} error{%endif%}">
 	     <label class="control-label"><b>主题</b></label>
 	     <div class="controls">
-		 {{form.subject}}{{form.subject.errors}}
+		 {{form.subject}}
+		 {%if form.subject.errors%}
+		 <div class="help-inline">
+		     {{form.subject.errors}}
+		 </div>
+		 {%endif%}
 	     </div>
 	 </div>
-	 <div class="control-group">
+	 <div class="control-group{%if form.content.errors%} error{%endif%}">
 	     <label class="control-label"><b>内容</b></label>
 	     <div class="controls">
-		 {{form.content}}{{form.content.errors}}
+		 {{form.content}}
+		 {%if form.content.errors%}
+		 <div class="help-inline">
+		     {{form.content.errors}}
+		 </div>
+		 {%endif%}
 	     </div>
 	 </div>
 	 <div class="form-actions">
