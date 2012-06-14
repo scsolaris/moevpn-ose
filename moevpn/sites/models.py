@@ -30,7 +30,7 @@ class TicketThread(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
     def __unicode__(self):
-      return self.subject
+        return self.user.username + ": " + self.subject
 
 class Ticket(models.Model):
     thread = models.ForeignKey(TicketThread)
