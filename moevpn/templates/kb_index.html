@@ -6,21 +6,35 @@
 		<div class="main">
 			<h1>帮助中心</h1>
 			<hr>
-			<table class="table">
-			<tr>
-				<th>ID</th>
-				<th>标题</th>
-				<th>作者</th>
-				<th>时间</th>		
-			</tr>			
-			{%for post in posts reversed%}
-			<tr>
-				<td>{{post.post_id}}</td>
-				<td><a href="/kb/post/{{post.post_id}}/" >{{post.title}}</a></td>
-				<td>{{post.author}}</td>
-				<td>{{post.time}}</td>
-			</tr>
-			{%endfor%}
-			</table>
+			<div class="container-fluid">
+			    <div class="row-fluid">
+				<div class="span2">
+				    <ul class="nav nav-pills nav-stacked">
+					<li{%if not category%} class="active"{%endif%}><a href="/kb/">全部</a></li>
+					{%for each in categories%}
+					<li{%ifequal category each%} class="active"{%endifequal%}><a href="/kb/category/{{each.name}}/">{{each.desc}}</a></li>
+					{%endfor%}
+				    </ul>
+				</div>
+				<div class="span10">
+				    <table class="table">
+				    <tr>
+					    <th>ID</th>
+					    <th>标题</th>
+					    <th>作者</th>
+					    <th>时间</th>		
+				    </tr>			
+				    {%for post in posts reversed%}
+				    <tr>
+					    <td>{{post.post_id}}</td>
+					    <td><a href="/kb/post/{{post.post_id}}/" >{{post.title}}</a></td>
+					    <td>{{post.user.username}}</td>
+					    <td>{{post.time}}</td>
+				    </tr>
+				    {%endfor%}
+				    </table>
+				</div>
+			    </div>
+			</div>
 		</div>
 		{%endblock%}
