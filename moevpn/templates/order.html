@@ -1,16 +1,73 @@
 {%extends "home.html"%}
 {%block content%}
 		<div class="well">
-			<form action="" method="POST">{% csrf_token %}
-			<table>	
-			    <tr><th><label><b>VPN帐号：</b></label></th><td>{{form.username}}</td><td>{{form.username.errors}}</td></tr>				
-			    <tr><th><label><b>VPN密码：</b></label></th><td>{{form.password}}</td><td>{{form.password.errors}}</td></tr>				
-			    <tr><th><label><b>VPN方案：</b></label></th><td>{{form.plan}}</td><td>{{form.plan.errors}}</td></tr>
-			    <tr><th><label><b>付款周期：</b></label></th><td>{{form.cycle}}</td><td>{{form.cycle.errors}}</td></tr>
-			    <tr><th><label><b>优惠代码：</b></label></th><td>{{form.promotion}}</td><td>{{form.promotion.errors}}</td></tr>				
-			</table>
-			<input class="btn btn-primary" type="submit" name="submit" value="提交订单" />
-			<input class="btn" type="reset" name="reset" value="重置" />
+			<form action="" method="POST" class="form-horizontal">{% csrf_token %}
+			<fieldset>
+			    <legend>提交订单</legend>
+			    <div class="control-group{%if form.username.errors%} error{%endif%}">
+				<label class="control-label"><b>VPN帐号</b></label>
+				<div class="controls">
+				    {{form.username}}
+				    {%if form.username.errors%}
+				    <div class="help-inline">
+					{{form.username.errors}}
+				    </div>
+				    {%endif%}
+				</div>
+			    </div>
+			    <div class="control-group{%if form.password.errors%} error{%endif%}">
+				<label class="control-label"><b>VPN密码</b></label>
+				<div class="controls">
+				    {{form.password}}
+				    {%if form.password.errors%}
+				    <div class="help-inline">
+					{{form.password.errors}}
+				    </div>
+				    {%endif%}
+				</div>
+			    </div>
+			    <div class="control-group{%if form.plan.errors%} error{%endif%}">
+				<label class="control-label"><b>VPN方案</b></label>
+				<div class="controls">
+				    {{form.plan}}
+				    {%if form.plan.errors%}
+				    <div class="help-inline">
+					{{form.plan.errors}}
+				    </div>
+				    {%endif%}
+				</div>
+			    </div>
+			    <div class="control-group{%if form.cycle.errors%} error{%endif%}">
+				<label class="control-label"><b>付款周期</b></label>
+				<div class="controls">
+				    {{form.cycle}}
+				    {%if form.cycle.errors%}
+				    <div class="help-inline">
+					{{form.cycle.errors}}
+				    </div>
+				    {%endif%}
+				</div>
+			    </div>
+			    <div class="control-group{%if form.promotion.errors%} error{%endif%}">
+				<label class="control-label"><b>优惠代码</b></label>
+				<div class="controls">
+				    {{form.promotion}}
+				    {%if form.promotion.errors%}
+				    <div class="help-inline">
+					{{form.promotion.errors}}
+				    </div>
+				    {%else%}
+				    <div class="help-inline">
+					<span>如不使用优惠代码则留空</span>	
+				    </div>
+				    {%endif%}
+				</div>
+			    </div>
+			    <div class="form-actions">
+				<input class="btn btn-primary" type="submit" name="submit" value="提交订单" />
+				<input class="btn" type="reset" name="reset" value="重置" />
+			    </div>
+			</fieldset>
 			</form>
 		</div>
 		<h3><a href="/home/order/">返回</a></h3>
