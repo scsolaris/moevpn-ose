@@ -1,6 +1,5 @@
 {%extends "home.html"%}
 {%block content%}
-		<div class="well">
 			<form action="" method="POST" class="form-horizontal">{% csrf_token %}
 			<fieldset>
 			    <legend>提交订单</legend>
@@ -69,6 +68,5 @@
 			    </div>
 			</fieldset>
 			</form>
-		</div>
 		<h3><a href="/home/order/">返回</a></h3>
 {%endblock%}
