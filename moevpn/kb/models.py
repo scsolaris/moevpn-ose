@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=32)
     desc = models.CharField(max_length=64)
+    def __unicode__(self):
+      return self.name
     
 class Post(models.Model):
     user = models.ForeignKey(User)
