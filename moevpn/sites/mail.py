@@ -28,6 +28,16 @@ def send_new_order(username):
   msg.send()
   return True
 
+def send_new_ticket(username):
+  from_email = settings.MAIL_SENDER
+  to_email = settings.MAIL_ADMIN
+  notifacation = Notifacation.objects.get(name="new_ticket")
+  subject = notifacation.title
+  text_content = re.sub("{username}",username,notifacation.content)
+  msg = EmailMessage(subject,text_content,from_email,[to_email])
+  msg.send()
+  return True
+
 def send_reg_mail(user):
   from_email = settings.MAIL_SENDER
   to_email = user.email
@@ -67,7 +77,7 @@ def send_order_mail(user,order):
   message.content = html_content
   message.sender = "SYSTEM"
   message.save()
-  send_new_order(username)
+  send_new_order(user.username)
   return True
 
 def send_active_mail(user):
@@ -98,6 +108,7 @@ def send_ticket_mail(user,ticket):
   html_content = re.sub("{content}",ticket.content,notifacation.content)
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
+  msg.send()
   message = Message()
   message.user = user
   message.subject = subject
@@ -105,5 +116,5 @@ def send_ticket_mail(user,ticket):
   message.content = html_content
   message.sender = "SYSTEM"
   message.save()
-  msg.send()
+  send_new_ticket(user.username)
   return True
