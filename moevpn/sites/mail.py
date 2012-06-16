@@ -104,8 +104,8 @@ def send_ticket_mail(user,ticket):
   notifacation = Notifacation.objects.get(name="ticket")
   subject = notifacation.title
   html_content = notifacation.content
-  html_content = re.sub("{subject}",ticket.subject,notifacation.content)
-  html_content = re.sub("{content}",ticket.content,notifacation.content)
+  html_content = re.sub("{subject}",ticket.subject,html_content)
+  html_content = re.sub("{content}",ticket.content,html_content)
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
   msg.send()

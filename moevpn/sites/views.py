@@ -9,7 +9,7 @@ from django.core.context_processors import csrf
 from datetime import datetime,timedelta
 from moevpn.vpn.models import *
 from moevpn.utils import quota_used,message_count,ticket_count
-from mail import send_reg_mail
+from mail import send_reg_mail,send_ticket_mail
 from models import *
 from forms import *
 
@@ -289,6 +289,7 @@ def ticket_submit(request):
             ticket.content = cd['content']
             ticket.sender = user.username
             ticket.save()
+            send_ticket_mail(user,ticket)
             return HttpResponseRedirect("/home/ticket/")
         else:
             c = {"form":form,
