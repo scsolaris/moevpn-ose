@@ -2,7 +2,7 @@
 # Chon<chon219@gmail.com>
 
 from django.core.mail import EmailMessage
-from models import Notifacation,Message
+from models import *
 from moevpn import settings
 from moevpn.vpn.models import *
 from datetime import datetime
@@ -76,6 +76,26 @@ def send_active_mail(user):
   notifacation = Notifacation.objects.get(name="active")
   subject = notifacation.title
   html_content = notifacation.content
+  msg = EmailMessage(subject,html_content,from_email,[to_email])
+  msg.content_subtype = "html"
+  message = Message()
+  message.user = user
+  message.subject = subject
+  message.time = datetime.now()
+  message.content = html_content
+  message.sender = "SYSTEM"
+  message.save()
+  msg.send()
+  return True
+
+def send_ticket_mail(user,ticket):
+  from_email = settings.MAIL_SENDER
+  to_email = user.email
+  notifacation = Notifacation.objects.get(name="ticket")
+  subject = notifacation.title
+  html_content = notifacation.content
+  html_content = re.sub("{subject}",ticket.subject,notifacation.content)
+  html_content = re.sub("{content}",ticket.content,notifacation.content)
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
   message = Message()
