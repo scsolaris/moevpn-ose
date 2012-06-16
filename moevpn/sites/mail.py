@@ -4,6 +4,7 @@
 from django.core.mail import EmailMessage
 from models import Notifacation,Message
 from moevpn import settings
+from moevpn.vpn.models import *
 from datetime import datetime
 import re
 
@@ -46,16 +47,16 @@ def send_reg_mail(user):
   send_new_reg(user.username)
   return True
 
-def send_order_mail(user,username,password,cycle,plan,price):
+def send_order_mail(user,order):
   from_email = settings.MAIL_SENDER
   to_email = user.email
   notifacation = Notifacation.objects.get(name="order")
   subject = notifacation.title
-  html_content = re.sub("{vpn_username}",username,notifacation.content)
-  html_content = re.sub("{vpn_password}",password,html_content)
-  html_content = re.sub("{vpn_plan}",plan.detail,html_content)
-  html_content = re.sub("{vpn_cycle}",cycle.detail,html_content)
-  html_content = re.sub("{vpn_price}",str(price),html_content)
+  html_content = re.sub("{vpn_username}",order.username,notifacation.content)
+  html_content = re.sub("{vpn_password}",order.password,html_content)
+  html_content = re.sub("{vpn_plan}",order.plan.detail,html_content)
+  html_content = re.sub("{vpn_cycle}",order.cycle.detail,html_content)
+  html_content = re.sub("{vpn_price}",str(order.price),html_content)
   msg = EmailMessage(subject,html_content,from_email,[to_email])
   msg.content_subtype = "html"
   msg.send()

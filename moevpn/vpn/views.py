@@ -37,7 +37,7 @@ def order(request):
             order.price = int(cycle.quota/30) * cycle.discount * plan.price * plan.discount
             order.discount = cycle.discount * plan.discount
 	order.save()
-	send_order_mail(request.user,order.username,order.password,order.cycle,order.plan,order.price)
+	send_order_mail(request.user,order)
 	return HttpResponseRedirect("/home/order/")
       else:
         c = {'form':form,
@@ -157,7 +157,7 @@ def account_renew(request,username):
         order.price = int(account.cycle.quota/30) * account.cycle.discount * account.plan.discount * account.plan.price
         order.discount = account.cycle.discount * account.plan.discount
     order.save()
-    send_order_mail(user,order.username,order.password,order.cycle,order.plan,order.price)
+    send_order_mail(user,order)
     return HttpResponseRedirect("/home/order/")
   except Exception:
     return HttpResponseRedirect("/home/account/")
