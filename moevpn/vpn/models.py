@@ -47,9 +47,9 @@ class Log(models.Model):
     end_time = models.DateTimeField(blank=True)
     bytes_received = models.DecimalField(default=0,max_digits=13,decimal_places=0)
     bytes_sent = models.DecimalField(default=0,max_digits=13,decimal_places=0)
-    local_ip = models.CharField(max_length=64)
-    remote_ip = models.CharField(max_length=64)
-    proto = models.CharField(max_length=24)
+    local_ip = models.CharField(max_length=64,null=True,blank=True)
+    remote_ip = models.CharField(max_length=64,null=True,blank=True)
+    proto = models.CharField(max_length=24,null=True,blank=True)
     status = models.BooleanField(default=False)
     def __unicode__(self):
       return unicode(self.start_time)
