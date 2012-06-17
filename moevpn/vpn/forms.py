@@ -12,11 +12,11 @@ class OrderForm(forms.Form):
     VPN_PLAN_CHOICES.append((plan.name,plan.detail))
   for cycle in Cycle.objects.all():
     VPN_CYCLE_CHOICES.append((cycle.name,cycle.detail))
-  username = forms.CharField(min_length=4,max_length=30,label=u"VPN帐号")
-  password = forms.CharField(min_length=4,max_length=60,label=u"VPN密码")
+  username = forms.CharField(min_length=4,max_length=30)
+  password = forms.CharField(min_length=4,max_length=60)
   plan = forms.ChoiceField(choices=VPN_PLAN_CHOICES)
   cycle = forms.ChoiceField(choices=VPN_CYCLE_CHOICES)
-  promotion = forms.CharField(min_length=2,max_length=16,label=u"优惠代码",required=False)
+  promotion = forms.CharField(min_length=2,max_length=16,required=False)
   def clean_username(self):
     username = self.cleaned_data['username']
     pattern = re.compile("^[0-9a-zA-Z_]+$")
@@ -32,5 +32,5 @@ class OrderForm(forms.Form):
 
 
 class ChangePasswdForm(forms.Form):
-  old_password = forms.CharField(min_length=4,max_length=60,label=u"原密码")
-  new_password = forms.CharField(min_length=4,max_length=60,label=u"新密码")
+  old_password = forms.CharField(min_length=4,max_length=60)
+  new_password = forms.CharField(min_length=4,max_length=60)

@@ -9,9 +9,9 @@ from models import *
 import re
 
 class RegForm(forms.Form):
-  username = forms.CharField(min_length=4,max_length=30,label=u"用户名")
+  username = forms.CharField(min_length=4,max_length=30)
   email = forms.EmailField(max_length=30,label="Email")
-  password = forms.CharField(min_length=4,max_length=60,label="密码",widget=forms.PasswordInput)
+  password = forms.CharField(min_length=4,max_length=60,widget=forms.PasswordInput)
   captcha = ReCaptchaField()
   def clean_username(self):
     username = self.cleaned_data['username']
@@ -27,8 +27,8 @@ class RegForm(forms.Form):
     return username
 
 class LoginForm(forms.Form):
-  username = forms.CharField(min_length=4,max_length=30,label=u"用户名")
-  password = forms.CharField(min_length=4,max_length=60,label=u"密码",widget=forms.PasswordInput)
+  username = forms.CharField(min_length=4,max_length=30)
+  password = forms.CharField(min_length=4,max_length=60,widget=forms.PasswordInput)
   def clean(self):
     username = self.cleaned_data['username']
     password = self.cleaned_data['password']
